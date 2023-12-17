@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-const footer = () => {
+const Footer = () => {
     return (
         <div className='footer' >
             <h1 className='text-center'>All Rights Reserved &copy; PureCrafts</h1>
@@ -16,4 +16,4 @@ const footer = () => {
     )
 }
 
-export default footer
+export default Footer
