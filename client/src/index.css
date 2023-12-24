@@ -101,3 +101,7 @@ font-family: 'Young Serif', serif;*/
 }
   /* ========================================= */
 /* =========register========= */
+.product-link{
+  text-decoration: none !important;
+  color: #000000 !important;
+}
