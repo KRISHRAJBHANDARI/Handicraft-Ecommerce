@@ -34,6 +34,10 @@ const productSchema = new mongoose.Schema(
         shipping: {
             type: Boolean,
         },
+        customization: {
+            type: String,
+            enum: ["Fir", "Cedar", "Pine"],
+        },
     },
     { timestamps: true }
 );
