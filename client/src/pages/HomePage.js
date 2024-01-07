@@ -6,6 +6,9 @@ import { Checkbox, Radio } from "antd";
 import { Prices } from "../components/Prices";
 import { useCart } from "../context/cart";
 import toast from "react-hot-toast";
+import "../css/HomePage.css"
+
+
 const HomePage = () => {
     const navigate = useNavigate();
     const [cart, setCart] = useCart();
@@ -60,6 +63,7 @@ const HomePage = () => {
         if (page === 1) return;
         loadMore();
     }, [page]);
+
     //load more
     const loadMore = async () => {
         try {
@@ -104,10 +108,16 @@ const HomePage = () => {
         }
     };
     return (
-        <Layout title={"ALl Products - Best offers "}>
+        <Layout>
+            <img
+                src="/Images/Homebackground.png"
+                className="banner-img"
+                alt="bannerimage"
+                width={"100%"}
+            />
             <div className="container-fluid row mt-3">
-                <div className="col-md-2">
-                    <h4 className="text-center">Filter By Category</h4>
+                <div className="col-md-2" >
+                    <h4 className="text-center" >Filter By Category</h4>
                     <div className="d-flex flex-column">
                         {categories?.map((c) => (
                             <Checkbox
@@ -156,12 +166,14 @@ const HomePage = () => {
                                     <p className="card-text"> NPR {p.price}</p>
                                     <button
                                         className="btn btn-primary ms-1"
+                                        style={{ height: '40px', width: '120px' }}
                                         onClick={() => navigate(`/product/${p.slug}`)}
                                     >
                                         More Details
                                     </button>
                                     <button
                                         className="btn btn-secondary ms-1"
+
                                         onClick={() => {
                                             setCart([...cart, p]);
                                             localStorage.setItem(
@@ -192,6 +204,7 @@ const HomePage = () => {
                     </div>
                 </div>
             </div>
+
         </Layout>
     );
 };

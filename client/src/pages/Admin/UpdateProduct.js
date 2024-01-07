@@ -32,7 +32,7 @@ const UpdateProduct = () => {
             setPrice(data.product.price);
             setPrice(data.product.price);
             setQuantity(data.product.quantity);
-            setShipping(data.product.shipping);
+
             setCategory(data.product.category._id);
         } catch (error) {
             console.log(error);
@@ -94,7 +94,7 @@ const UpdateProduct = () => {
             const { data } = await axios.delete(
                 `/api/v1/product/delete-product/${id}`
             );
-            toast.success("Product DEleted Succfully");
+            toast.success("Product Deleted Succfully");
             navigate("/dashboard/admin/products");
         } catch (error) {
             console.log(error);

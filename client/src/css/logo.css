@@ -1,0 +1,12 @@
+.logo-img {
+    width: 100px; /* Set the desired width */
+    height: auto; /* Maintain aspect ratio */
+    margin-right: 10px; /* Add margin if needed */
+    /* Add other styling as needed */
+}
+
+/* Add other styles as needed */
+.navbar {
+    height: 60px; /* Set the desired height */
+    width: 100%;
+}

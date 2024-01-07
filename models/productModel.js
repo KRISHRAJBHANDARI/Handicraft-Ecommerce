@@ -31,9 +31,7 @@ const productSchema = new mongoose.Schema(
             data: Buffer,
             contentType: String,
         },
-        shipping: {
-            type: Boolean,
-        },
+
         customization: {
             type: String,
             enum: ["Fir", "Cedar", "Pine"],

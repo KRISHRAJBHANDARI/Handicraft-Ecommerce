@@ -45,7 +45,7 @@ router.get("/get-product/:slug", getSingleProductController);
 router.get("/product-photo/:pid", productPhotoController);
 
 //delete product
-router.delete("/product/:pid", deleteProductController);
+router.delete("/delete-product/:pid", deleteProductController);
 
 //filter product
 router.post("/product-filters", productFiltersController);
@@ -58,6 +58,7 @@ router.get("/product-list/:page", productListController);
 
 //search product
 router.get("/search/:keyword", searchProductController);
+
 //similar product
 router.get("/related-product/:pid/:cid", realtedProductController);
 

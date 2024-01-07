@@ -15,7 +15,6 @@ const CreateProduct = () => {
     const [price, setPrice] = useState("");
     const [category, setCategory] = useState("");
     const [quantity, setQuantity] = useState("");
-    const [shipping, setShipping] = useState("");
     const [photo, setPhoto] = useState("");
 
     //get all category
@@ -149,23 +148,9 @@ const CreateProduct = () => {
                                     onChange={(e) => setQuantity(e.target.value)}
                                 />
                             </div>
+
                             <div className="mb-3">
-                                <Select
-                                    bordered={false}
-                                    placeholder="Select Shipping "
-                                    size="large"
-                                    showSearch
-                                    className="form-select mb-3"
-                                    onChange={(value) => {
-                                        setShipping(value);
-                                    }}
-                                >
-                                    <Option value="0">No</Option>
-                                    <Option value="1">Yes</Option>
-                                </Select>
-                            </div>
-                            <div className="mb-3">
-                                <button className="btn btn-primary" onClick={handleCreate}>
+                                <button className="btn btn-primary" style={{ width: 'auto' }} onClick={handleCreate}>
                                     CREATE PRODUCT
                                 </button>
                             </div>
