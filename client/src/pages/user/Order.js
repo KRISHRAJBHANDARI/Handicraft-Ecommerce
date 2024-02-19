@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import UserMenu from "../../components/Layout/UserMenu";
-import Layout from "./../../components/Layout/Layout";
+import UserMenu from "../../components/layout/UserMenu.js";
+import Layout from "./../../components/layout/layout.js";
 import axios from "axios";
 import { useAuth } from "../../context/auth";
 import moment from "moment";
