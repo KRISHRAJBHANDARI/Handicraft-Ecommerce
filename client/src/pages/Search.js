@@ -1,10 +1,11 @@
 import React from "react";
 import Layout from "./../components/layout/layout.js";
 import { useSearch } from "../context/search";
+
 const Search = () => {
     const [values, setValues] = useSearch();
     return (
-        <Layout title={"Search results"}>
+        <Layout>
             <div className="container">
                 <div className="text-center">
                     <h1>Search Resuts</h1>

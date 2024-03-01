@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import Layout from './../../components/layout/layout.js';
+import "../../styles/ProductDetailsStyles.css"
+
 const ProductDetails = () => {
     const params = useParams();
     const navigate = useNavigate();
