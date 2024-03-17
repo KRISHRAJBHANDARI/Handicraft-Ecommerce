@@ -29,7 +29,7 @@ const Header = () => {
             <nav className="navbar navbar-expand-lg bg-body-tertiary">
                 <div className="container-fluid">
                     <Link to="/" className="navbar-brand">
-                        <img src="/Images/logo.png" alt="Logo" className="logo-img" />
+                        <img src="/Images/loggo.png" alt="Logo" className="logo-img" maxheight="50px" width="auto" />
                     </Link>
                     <button
                         className="navbar-toggler"

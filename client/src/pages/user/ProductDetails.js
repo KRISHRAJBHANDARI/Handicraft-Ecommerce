@@ -3,6 +3,8 @@ import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import Layout from './../../components/layout/layout.js';
 import "../../styles/ProductDetailsStyles.css"
+import { useCart } from "../../context/cart.js";
+import toast from "react-hot-toast";
 
 const ProductDetails = () => {
     const params = useParams();
@@ -10,13 +12,14 @@ const ProductDetails = () => {
     const [product, setProduct] = useState({});
     const [relatedProducts, setRelatedProducts] = useState([]);
     const [selectedCustomization, setSelectedCustomization] = useState("");
+    const [cart, setCart] = useCart();
 
-
-    //inital details
+    // Inital details
     useEffect(() => {
         if (params?.slug) getProduct();
     }, [params?.slug]);
-    //getProduct
+
+    // Get product details
     const getProduct = async () => {
         try {
             const { data } = await axios.get(
@@ -28,7 +31,8 @@ const ProductDetails = () => {
             console.log(error);
         }
     };
-    //get similar product
+
+    // Get similar products
     const getSimilarProduct = async (pid, cid) => {
         try {
             const { data } = await axios.get(
@@ -39,6 +43,20 @@ const ProductDetails = () => {
             console.log(error);
         }
     };
+
+    // "Add to Cart" click handler
+    const handleAddToCart = () => {
+        // Add the selected product to the cart with customization
+        const productToAdd = { ...product, customization: selectedCustomization };
+        setCart((prevCart) => [...prevCart, productToAdd]);
+
+        // Update localStorage
+        localStorage.setItem("cart", JSON.stringify([...cart, productToAdd]));
+
+        // Show a success toast
+        toast.success("Item Added to cart");
+    };
+
     return (
         <Layout>
             <div className="row container mt-2">
@@ -49,16 +67,20 @@ const ProductDetails = () => {
                         alt={product.name}
                         height="492.469px"
                         width={"490px"}
-
                     />
                 </div>
                 <div className="col-md-6 ">
                     <h1 className="text-center">Product Details</h1>
                     <h6>Name : {product.name}</h6>
                     <h6>Description : {product.description}</h6>
-                    <h6>Price : {product.price}</h6>
+                    <h6>
+                        Price :
+                        {product?.price?.toLocaleString("en-US", {
+                            style: "currency",
+                            currency: "USD",
+                        })}
+                    </h6>
                     <h6>Category : {product?.category?.name}</h6>
-                    {/* Dropdown for Customization */}
                     <div className="mb-3">
                         <label htmlFor="customizationDropdown" className="form-label">
                             Customization:
@@ -69,13 +91,15 @@ const ProductDetails = () => {
                             value={selectedCustomization}
                             onChange={(e) => setSelectedCustomization(e.target.value)}
                         >
-                            <option value="">Select Customization</option>
+                            <option value="">Select Types Of Woods</option>
                             <option value="Fir">Fir</option>
                             <option value="Cedar">Cedar</option>
                             <option value="Pine">Pine</option>
                         </select>
                     </div>
-                    <button class="btn btn-secondary ms-1">ADD TO CART</button>
+                    <button className="btn btn-secondary ms-1" onClick={handleAddToCart}>
+                        ADD TO CART
+                    </button>
                 </div>
             </div>
             <hr />
@@ -102,7 +126,9 @@ const ProductDetails = () => {
                                 >
                                     More Details
                                 </button>
-                                <button class="btn btn-secondary ms-1">ADD TO CART</button>
+                                <button className="btn btn-secondary ms-1" onClick={handleAddToCart}>
+                                    ADD TO CART
+                                </button>
                             </div>
                         </div>
                     ))}

@@ -1,17 +1,8 @@
-.logo-img {
-    width: 100px; /* Set the desired width */
-    height: 100px; /* Maintain aspect ratio */
-    margin-right: 10px; /* Add margin if needed */
-    /* Add other styling as needed */
-}
+
 
 .navbar .navbar-brand img {
-    max-height: 100px; /* Adjust the max height as needed */
+    max-height: 50px; /* Adjust the max height as needed */
     width: auto;
 }
 
-/* Center the logo vertically in the navbar */
-.navbar .navbar-brand {
-    display: flex;
-    align-items: center;
-}
+

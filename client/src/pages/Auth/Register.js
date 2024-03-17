@@ -4,7 +4,7 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast';
 //import "../../css/login.css"
-import "../../styles/screen.css";
+
 import "../../styles/Authstyles.css";
 
 const Register = () => {
@@ -38,86 +38,79 @@ const Register = () => {
     return (
         <Layout>
             <div className='register'>
-                <h1>Register</h1>
-                <form onSubmit={handleSubmit}>
-                    <div className="mb-3">
-                        <label htmlFor="exampleInputName" className="form-label">Name</label>
-                        <input
-                            type="text"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            className="form-control"
-                            id="exampleInputEmail1"
-                            required
-                        />
-                    </div>
+                <h1 style={{ color: '' }}>Register</h1>
+                <div className='hehe' style={{ width: "50%" }}>
+                    <form className="row g-3" onSubmit={handleSubmit}>
+                        <div className="col-md-6">
+                            <label htmlFor="exampleInputName" className="form-label">Name</label>
+                            <input
+                                type="text"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                className="form-control"
+                                id="exampleInputEmail1"
+                                required
+                            />
+                        </div>
+                        <div className="col-md-6">
+                            <label htmlFor="exampleInputName" className="form-label">Email</label>
+                            <input
+                                type="Email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                className="form-control"
+                                id="exampleInputEmail2"
+                                required
+                            />
+                        </div>
+                        <div className="col-12">
+                            <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
+                            <input type="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                className="form-control" id="exampleInputPassword1"
+                                required
+                            />
+                        </div>
+                        <div className="col-12">
+                            <label htmlFor="exampleInputName" className="form-label">Address</label>
+                            <input
+                                type="text"
+                                value={address}
+                                onChange={(e) => setAddress(e.target.value)}
+                                className="form-control"
+                                id="exampleInputEmail3"
+                                required
+                            />
+                        </div>
+                        <div className="col-md-6">
+                            <label htmlFor="exampleInputName" className="form-label">Phone Number</label>
+                            <input
+                                type="text"
+                                value={phone}
+                                onChange={(e) => setPhone(e.target.value)}
+                                className="form-control"
+                                id="exampleInputEmail4"
+                                required
+                            />
+                        </div>
+                        <div className="col-md-4">
+                            <label htmlFor="exampleInputName" className="form-label">What is Your Pet Name?</label>
+                            <input
+                                type="text"
+                                value={answer}
+                                onChange={(e) => setAnswer(e.target.value)}
+                                className="form-control"
+                                id="exampleInputEmail5"
+                                required
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <button type="submit" className="btn btn-primary">Submit</button>
 
-                    <div className="mb-3">
-                        <label htmlFor="exampleInputName" className="form-label">Email</label>
-                        <input
-                            type="Email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            className="form-control"
-                            id="exampleInputEmail2"
-                            required
-                        />
-                    </div>
-
-
-
-                    <div className="mb-3">
-                        <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
-                        <input type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            className="form-control" id="exampleInputPassword1"
-                            required
-                        />
-                    </div>
-
-                    <div className="mb-3">
-                        <label htmlFor="exampleInputName" className="form-label">Address</label>
-                        <input
-                            type="text"
-                            value={address}
-                            onChange={(e) => setAddress(e.target.value)}
-                            className="form-control"
-                            id="exampleInputEmail3"
-                            required
-                        />
-                    </div>
-
-
-                    <div className="mb-3">
-                        <label htmlFor="exampleInputName" className="form-label">Phone Number</label>
-                        <input
-                            type="text"
-                            value={phone}
-                            onChange={(e) => setPhone(e.target.value)}
-                            className="form-control"
-                            id="exampleInputEmail4"
-                            required
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="exampleInputName" className="form-label">What is Your Pet Name?</label>
-                        <input
-                            type="text"
-                            value={answer}
-                            onChange={(e) => setAnswer(e.target.value)}
-                            className="form-control"
-                            id="exampleInputEmail5"
-                            required
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <button type="submit" className="btn btn-primary">Submit</button>
-
-                    </div>
-
-
-                </form>
+                        </div>
+                    </form>
+                </div>
 
 
             </div>

@@ -50,14 +50,14 @@ const Profile = () => {
         }
     };
     return (
-        <Layout title={"Your Profile"}>
-            <div className="container-fluid m-3 p-3">
+        <Layout>
+            <div className="container-fluid m-3 p-3" >
                 <div className="row">
                     <div className="col-md-3">
                         <UserMenu />
                     </div>
                     <div className="col-md-9">
-                        <div className="form-container ">
+                        <div className="form-container " style={{ marginTop: "-20px" }}>
                             <form onSubmit={handleSubmit}>
                                 <h4 className="title">USER PROFILE</h4>
                                 <div className="mb-3">

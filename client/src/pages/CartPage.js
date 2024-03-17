@@ -32,6 +32,7 @@ const CartPage = () => {
             console.log(error);
         }
     };
+
     //detele item
     const removeCartItem = (pid) => {
         try {
@@ -54,6 +55,7 @@ const CartPage = () => {
             console.log(error);
         }
     };
+
     useEffect(() => {
         getToken();
     }, [auth?.token]);
@@ -77,6 +79,7 @@ const CartPage = () => {
             setLoading(false);
         }
     };
+
     return (
         <Layout>
             <div className=" cart-page">
@@ -111,8 +114,12 @@ const CartPage = () => {
                                     </div>
                                     <div className="col-md-4">
                                         <p>{p.name}</p>
-                                        <p>{p.description.substring(0, 30)}</p>
+
                                         <p>Price : {p.price}</p>
+                                        {/* Display the selected customization */}
+                                        {p.customization && (
+                                            <p>Customization: {p.customization}</p>
+                                        )}
                                     </div>
                                     <div className="col-md-4 cart-remove-btn">
                                         <button

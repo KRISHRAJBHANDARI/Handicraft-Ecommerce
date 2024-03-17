@@ -1,0 +1,37 @@
+/* Add this CSS to your existing styles or create a new CSS file */
+
+/* Styles for AdminOrders component */
+.dashboard {
+    margin-top: 20px;
+  }
+  
+  /* Styles for the order table */
+  .border {
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #fff;
+  }
+  
+  .table th, .table td {
+    text-align: center;
+  }
+  
+  /* Styles for product details within an order */
+  .product-details {
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+    margin-top: 10px;
+  }
+  
+  .product-details p {
+    margin: 5px 0;
+  }
+  
+  /* Styles for the Select component */
+  .ant-select {
+    width: 150px;
+  }
+  
+  /* Adjust other styles as needed */
+  

@@ -21,14 +21,14 @@ const Orders = () => {
         if (auth?.token) getOrders();
     }, [auth?.token]);
     return (
-        <Layout title={"Your Orders"}>
-            <div className="container-flui p-3 m-3 dashboard">
+        <Layout >
+            <div className="container-flui p-3 m-3 dashboard" style={{ marginTop: "-90px" }}>
                 <div className="row">
-                    <div className="col-md-3">
+                    <div className="col-md-3 " >
                         <UserMenu />
                     </div>
                     <div className="col-md-9">
-                        <h1 className="text-center">All Orders</h1>
+                        <h1 className="text-center" style={{ marginTop: "-90px" }} >All Orders</h1>
                         {orders?.map((o, i) => {
                             return (
                                 <div className="border shadow">

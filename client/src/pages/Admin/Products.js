@@ -4,7 +4,7 @@ import Layout from "./../../components/layout/layout.js";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
-import "../../styles/screen.css";
+
 const Products = () => {
     const [products, setProducts] = useState([]);
 

@@ -3,7 +3,6 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import AdminMenu from "../../components/layout/AdminMenu";
 import Layout from "../../components/layout/layout";
-import { useAuth } from "../../context/auth";
 import moment from "moment";
 import { Select } from "antd";
 const { Option } = Select;
@@ -16,9 +15,9 @@ const AdminOrders = () => {
         "deliverd",
         "cancel",
     ]);
-    const [changeStatus, setCHangeStatus] = useState("");
+    const [changeStatus, setChangeStatus] = useState("");
     const [orders, setOrders] = useState([]);
-    const [auth, setAuth] = useAuth();
+
     const getOrders = async () => {
         try {
             const { data } = await axios.get("/api/v1/auth/all-orders");
@@ -29,8 +28,8 @@ const AdminOrders = () => {
     };
 
     useEffect(() => {
-        if (auth?.token) getOrders();
-    }, [auth?.token]);
+        getOrders();
+    }, []);
 
     const handleChange = async (orderId, value) => {
         try {
@@ -42,6 +41,7 @@ const AdminOrders = () => {
             console.log(error);
         }
     };
+
     return (
         <Layout>
             <div className="row dashboard">
@@ -52,16 +52,17 @@ const AdminOrders = () => {
                     <h1 className="text-center">All Orders</h1>
                     {orders?.map((o, i) => {
                         return (
-                            <div className="border shadow">
+                            <div className="border shadow" key={o._id}>
                                 <table className="table">
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
                                             <th scope="col">Status</th>
                                             <th scope="col">Buyer</th>
-                                            <th scope="col"> date</th>
+                                            <th scope="col">Date</th>
                                             <th scope="col">Payment</th>
                                             <th scope="col">Quantity</th>
+                                            <th scope="col">Customization</th> {/* Add this line */}
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -84,6 +85,13 @@ const AdminOrders = () => {
                                             <td>{moment(o?.createAt).fromNow()}</td>
                                             <td>{o?.payment.success ? "Success" : "Failed"}</td>
                                             <td>{o?.products?.length}</td>
+                                            <td>
+                                                {o?.products?.map((p, index) => (
+                                                    <div key={index}>
+                                                        <p>{p.customization}</p>
+                                                    </div>
+                                                ))}
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -101,7 +109,7 @@ const AdminOrders = () => {
                                             </div>
                                             <div className="col-md-8">
                                                 <p>{p.name}</p>
-                                                <p>{p.description.substring(0, 30)}</p>
+
                                                 <p>Price : {p.price}</p>
                                             </div>
                                         </div>
