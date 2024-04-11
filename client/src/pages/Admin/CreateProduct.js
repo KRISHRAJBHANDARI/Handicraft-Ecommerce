@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import Layout from '../../components/layout/layout.js'
-import AdminMenu from './../../components/layout/AdminMenu.js';
+import Layout from "../../components/layout/layout.js";
+import AdminMenu from "./../../components/layout/AdminMenu.js";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { Select } from "antd";
 import { useNavigate } from "react-router-dom";
-const { Option } = Select;
 
+const { Option } = Select;
 
 const CreateProduct = () => {
     const navigate = useNavigate();
@@ -17,8 +17,9 @@ const CreateProduct = () => {
     const [category, setCategory] = useState("");
     const [quantity, setQuantity] = useState("");
     const [photo, setPhoto] = useState("");
+    const [video, setVideo] = useState("");
 
-    //get all category
+    // Get all categories
     const getAllCategory = async () => {
         try {
             const { data } = await axios.get("/api/v1/category/get-category");
@@ -27,7 +28,7 @@ const CreateProduct = () => {
             }
         } catch (error) {
             console.log(error);
-            toast.error("Something wwent wrong in getting catgeory");
+            toast.error("Something went wrong in getting categories");
         }
     };
 
@@ -35,7 +36,7 @@ const CreateProduct = () => {
         getAllCategory();
     }, []);
 
-    //create product function
+    // Handle form submission
     const handleCreate = async (e) => {
         e.preventDefault();
         try {
@@ -46,20 +47,30 @@ const CreateProduct = () => {
             productData.append("quantity", quantity);
             productData.append("photo", photo);
             productData.append("category", category);
-            const { data } = axios.post(
+            productData.append("video", video);
+
+            // Send product data to backend
+            const { data } = await axios.post(
                 "/api/v1/product/create-product",
                 productData
             );
+
             if (data?.success) {
-                toast.error(data?.message);
-            } else {
-                toast.success("Product Created Successfully");
+                toast.success("Product created successfully");
                 navigate("/dashboard/admin/products");
+            } else {
+                toast.error(data?.message || "Failed to create product");
             }
         } catch (error) {
-            console.log(error);
-            toast.error("something went wrong");
+            console.error(error);
+            toast.error("Something went wrong");
         }
+    };
+
+    // Handle video file selection
+    const handleVideoChange = (e) => {
+        const file = e.target.files[0];
+        setVideo(file);
     };
 
     return (
@@ -113,19 +124,42 @@ const CreateProduct = () => {
                                 )}
                             </div>
                             <div className="mb-3">
+                                <label className="btn btn-outline-secondary col-md-12">
+                                    {video ? video.name : "Upload Video"}
+                                    <input
+                                        type="file"
+                                        name="video"
+                                        accept="video/*"
+                                        onChange={handleVideoChange}
+                                        hidden
+                                    />
+                                </label>
+                            </div>
+                            {video && (
+                                <div className="text-center">
+                                    <video
+                                        src={URL.createObjectURL(video)}
+                                        alt="product_video"
+                                        height={"200px"}
+                                        className="img img-responsive"
+                                        controls
+                                    />
+                                </div>
+                            )}
+
+                            <div className="mb-3">
                                 <input
                                     type="text"
                                     value={name}
-                                    placeholder="write a name"
+                                    placeholder="Write a name"
                                     className="form-control"
                                     onChange={(e) => setName(e.target.value)}
                                 />
                             </div>
                             <div className="mb-3">
                                 <textarea
-                                    type="text"
                                     value={description}
-                                    placeholder="write a description"
+                                    placeholder="Write a description"
                                     className="form-control"
                                     onChange={(e) => setDescription(e.target.value)}
                                 />
@@ -135,7 +169,7 @@ const CreateProduct = () => {
                                 <input
                                     type="number"
                                     value={price}
-                                    placeholder="write a Price"
+                                    placeholder="Write a Price"
                                     className="form-control"
                                     onChange={(e) => setPrice(e.target.value)}
                                 />
@@ -144,14 +178,18 @@ const CreateProduct = () => {
                                 <input
                                     type="number"
                                     value={quantity}
-                                    placeholder="write a quantity"
+                                    placeholder="Write a quantity"
                                     className="form-control"
                                     onChange={(e) => setQuantity(e.target.value)}
                                 />
                             </div>
 
                             <div className="mb-3">
-                                <button className="btn btn-primary" style={{ width: 'auto' }} onClick={handleCreate}>
+                                <button
+                                    className="btn btn-primary"
+                                    style={{ width: "auto" }}
+                                    onClick={handleCreate}
+                                >
                                     CREATE PRODUCT
                                 </button>
                             </div>

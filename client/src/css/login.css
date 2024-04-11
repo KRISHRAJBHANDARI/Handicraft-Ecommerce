@@ -4,11 +4,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    
     height: auto;
     flex-direction: column;
     background: url('F:\3rd Year\fyp\Images\background.png') no-repeat center center ;
-    background-size: cover; /* Ensure the background image covers the entire container */
     width: 100%; /* Set the width to 100% */
 }
 
@@ -16,7 +14,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 71.5vh;
+    height: 72vh;
     flex-direction: column;
 
   

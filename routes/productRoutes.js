@@ -11,6 +11,7 @@ import {
   productFiltersController,
   productListController,
   productPhotoController,
+  productVideoController,
   realtedProductController,
   searchProductController,
   updateProductController,
@@ -45,6 +46,7 @@ router.get("/get-product/:slug", getSingleProductController);
 
 //get photo
 router.get("/product-photo/:pid", productPhotoController);
+router.get("/product-video/:pid", productVideoController);
 
 //delete product
 router.delete("/delete-product/:pid", deleteProductController);

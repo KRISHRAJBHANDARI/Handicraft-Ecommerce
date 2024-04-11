@@ -1,7 +1,7 @@
 import productModel from "../models/productModel.js";
 import fs from "fs";
 import slugify from "slugify";
-import categoryModel from '../models/categoryModel.js';
+import categoryModel from "../models/categoryModel.js";
 import braintree from "braintree";
 import dotenv from "dotenv";
 import orderModel from "../models/orderModel.js";
@@ -15,14 +15,11 @@ var gateway = new braintree.BraintreeGateway({
     privateKey: process.env.BRAINTREE_PRIVATE_KEY,
 });
 
-
-
 export const createProductController = async (req, res) => {
     try {
-        const { name, description, price, category, quantity } =
-            req.fields;
-        const { photo } = req.files;
-        //validation
+        const { name, description, price, category, quantity } = req.fields;
+        const { photo, video } = req.files;
+        // Validation
         switch (true) {
             case !name:
                 return res.status(500).send({ error: "Name is Required" });
@@ -37,13 +34,22 @@ export const createProductController = async (req, res) => {
             case photo && photo.size > 5000000:
                 return res
                     .status(500)
-                    .send({ error: "photo is Required and should be less then 1mb" });
+                    .send({ error: "Photo is Required and should be less than 5mb" });
+            case video && video.size > 50000000:
+                return res
+                    .status(500)
+                    .send({ error: "Video is Required and should be less than 50mb" });
         }
 
         const products = new productModel({ ...req.fields, slug: slugify(name) });
         if (photo) {
             products.photo.data = fs.readFileSync(photo.path);
             products.photo.contentType = photo.type;
+        }
+        if (video) {
+            // Handle video similar to photo
+            products.video.data = fs.readFileSync(video.path);
+            products.video.contentType = video.type;
         }
         await products.save();
         res.status(201).send({
@@ -56,7 +62,7 @@ export const createProductController = async (req, res) => {
         res.status(500).send({
             success: false,
             error,
-            message: "Error in crearing product",
+            message: "Error in creating product",
         });
     }
 };
@@ -68,6 +74,7 @@ export const getProductController = async (req, res) => {
             .find({})
             .populate("category")
             .select("-photo")
+            .select("-video")
             .limit(12)
             .sort({ createdAt: -1 });
         res.status(200).send({
@@ -91,6 +98,8 @@ export const getSingleProductController = async (req, res) => {
         const product = await productModel
             .findOne({ slug: req.params.slug })
             .select("-photo")
+            .select("-video")
+
             .populate("category");
         res.status(200).send({
             success: true,
@@ -111,15 +120,35 @@ export const getSingleProductController = async (req, res) => {
 export const productPhotoController = async (req, res) => {
     try {
         const product = await productModel.findById(req.params.pid).select("photo");
-        if (product.photo.data) {
+        if (product && product.photo && product.photo.data) {
             res.set("Content-type", product.photo.contentType);
             return res.status(200).send(product.photo.data);
+        } else {
+            return res.status(404).send("Photo not found");
         }
     } catch (error) {
         console.log(error);
         res.status(500).send({
             success: false,
-            message: "Erorr while getting photo",
+            message: "Error while getting photo",
+            error,
+        });
+    }
+};
+
+export const productVideoController = async (req, res) => {
+    try {
+        const product = await productModel.findById(req.params.pid).select("video");
+        console.log("Products", product);
+        if (product.video.data) {
+            res.set("Content-type", product.video.contentType);
+            return res.status(200).send(product.video.data);
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            success: false,
+            message: "Error while getting video",
             error,
         });
     }

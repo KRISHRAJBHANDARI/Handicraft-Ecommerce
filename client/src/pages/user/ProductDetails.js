@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
-import Layout from './../../components/layout/layout.js';
-import "../../styles/ProductDetailsStyles.css"
+import Layout from "./../../components/layout/layout.js";
+import "../../styles/ProductDetailsStyles.css";
 import { useCart } from "../../context/cart.js";
 import toast from "react-hot-toast";
+import ReactPlayer from "react-player";
 
+//video
 const ProductDetails = () => {
     const params = useParams();
     const navigate = useNavigate();
@@ -26,6 +28,7 @@ const ProductDetails = () => {
                 `/api/v1/product/get-product/${params.slug}`
             );
             setProduct(data?.product);
+            console.log(data?.product);
             getSimilarProduct(data?.product._id, data?.product.category._id);
         } catch (error) {
             console.log(error);
@@ -61,13 +64,26 @@ const ProductDetails = () => {
         <Layout>
             <div className="row container mt-2">
                 <div className="col-md-6">
-                    <img
-                        src={`/api/v1/product/product-photo/${product._id}`}
-                        className="card-img-top"
-                        alt={product.name}
-                        height="492.469px"
-                        width={"490px"}
-                    />
+                    {/* Display Image */}
+                    {product && (
+                        <>
+                            <img
+                                src={`/api/v1/product/product-photo/${product._id}`}
+                                className="card-img-top"
+                                alt={product.name}
+                                height="492.469px"
+                                width={"490px"}
+                            />
+                            {/* Display Video if available */}
+                            {/* Display Video if available */}
+
+                            <div className="video-container">
+                                <ProductVideo
+                                    videoUrl={`/api/v1/product/product-video/${product._id}`}
+                                />
+                            </div>
+                        </>
+                    )}
                 </div>
                 <div className="col-md-6 ">
                     <h1 className="text-center">Product Details</h1>
@@ -126,7 +142,10 @@ const ProductDetails = () => {
                                 >
                                     More Details
                                 </button>
-                                <button className="btn btn-secondary ms-1" onClick={handleAddToCart}>
+                                <button
+                                    className="btn btn-secondary ms-1"
+                                    onClick={handleAddToCart}
+                                >
                                     ADD TO CART
                                 </button>
                             </div>
@@ -135,6 +154,14 @@ const ProductDetails = () => {
                 </div>
             </div>
         </Layout>
+    );
+};
+
+const ProductVideo = ({ videoUrl }) => {
+    return (
+        <div className="video-container p-4 text-center ">
+            <ReactPlayer url={videoUrl} controls={true} className="card-img-top" />
+        </div>
     );
 };
 

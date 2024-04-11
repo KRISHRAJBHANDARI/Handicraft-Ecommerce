@@ -31,6 +31,10 @@ const productSchema = new mongoose.Schema(
             data: Buffer,
             contentType: String,
         },
+        video: {
+            data: Buffer,
+            contentType: String,
+        },
 
         customization: {
             type: String,
